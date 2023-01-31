@@ -6,17 +6,17 @@ public class StudentAttendance {
     public String surName;
     public String dateofBirth;
     public String studentNo;
-    public Boolean Absent;
-    public Boolean Present;
+    public Boolean absent;
+    public Boolean present;
 
 
-    public StudentAttendance(String firstName, String surName, String dateofBirth, String studentNo, Boolean Present, Boolean Absent) {
+    public StudentAttendance(String firstName, String surName, String dateofBirth, String studentNo, Boolean present, Boolean absent) {
         this.firstName = firstName;
         this.surName = surName;
         this.dateofBirth = dateofBirth;
         this.studentNo = studentNo;
-        this.Present = Present;
-        this.Absent = Absent;
+        this.present = present;
+        this.absent = absent;
     }
 
     public String getFirstName() {
@@ -52,19 +52,19 @@ public class StudentAttendance {
     }
 
     public Boolean getAbsent() {
-        return Absent;
+        return absent;
     }
 
-    public void setAbsent(Boolean Absent) {
-        this.Absent = Absent;
+    public void setAbsent(Boolean absent) {
+        this.absent = absent;
     }
 
     public Boolean getPresent() {
-        return Present;
+        return present;
     }
 
-    public void setPresent(Boolean Present) {
-        this.Present = Present;
+    public void setPresent(Boolean present) {
+        this.present = present;
     }
 }
 

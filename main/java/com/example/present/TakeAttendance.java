@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,9 +47,6 @@ public class TakeAttendance extends AppCompatActivity {
         DatabaseReference reference = database.getReference("Students").child(currentUser.getUid());
         DatabaseReference ref2 = database.getReference("Attendence").child(currentUser.getUid());
 
-        // Initialise date entry to the database... We will then add the student in the adapter!
-        ref2.child(currentUser.getUid()).setValue(date);
-
         // Right now we just have a String in out items... We could make this different to add data
         List<StudentAttendance> items = new LinkedList<>();
 
@@ -60,12 +58,27 @@ public class TakeAttendance extends AppCompatActivity {
 
         // Submission button TODO- Change to submit to firebase currently just adds to view
         findViewById(R.id.Submittion_button).setOnClickListener(view -> {
+
+            HashMap<String, StudentList> students = new HashMap<>();
+
             for (int i = 0; i < items.size(); i++){
-                Log.d("Names", items.get(i).getFirstName());
-                Log.d("There", items.get(i).getPresent().toString());
+                Log.d("Names", items.get(i).getFirstName() + "Present: " + items.get(i).getPresent() + "Absent: " + items.get(i).getAbsent());
                 // Now here I need to check if each item has absent or present to add to firebase!
+                String fName = items.get(i).getFirstName();
+                String apedillo = items.get(i).getSurName();
+                String dob = items.get(i).getDateofBirth();
+                String studentNo = items.get(i).getStudentNo();
+                Boolean present = items.get(i).getPresent();
+                Boolean absent = items.get(i).getAbsent();
+
+                StudentAttendance st = new StudentAttendance(fName,apedillo,dob,studentNo,present,absent);
+                StudentList st1 = new StudentList(st);
+                students.put(st.getFirstName() + " " + st.getSurName(), st1);
 
             }
+
+            ref2.child(date).setValue(students);
+
         });
 
         // Grab relevant data and add to recyclerView

@@ -1,9 +1,11 @@
 package com.example.present;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,8 +22,10 @@ import java.util.List;
 
 public class attAdapter extends RecyclerView.Adapter<attVH> {
 
+    // List of recycler view items - we have list of students and the present or absent buttons
     public List<StudentAttendance> items;
 
+    // Adapter to add remove, edit recycler view items!
     public attAdapter(List<StudentAttendance> items){
         this.items = items;
     }
@@ -63,6 +67,11 @@ class attVH extends RecyclerView.ViewHolder{
             Log.d("Present", textview.getText().toString());
             adapter.items.get(getBindingAdapterPosition()).setPresent(true);
             adapter.items.get(getBindingAdapterPosition()).setAbsent(false);
+
+            Button present = (Button) itemView.findViewById(R.id.Present);
+            Button absent = (Button) itemView.findViewById((R.id.Absent));
+            present.setBackgroundColor(Color.BLUE);
+            absent.setBackgroundColor(Color.GRAY);
             adapter.notifyItemChanged(getBindingAdapterPosition());
         });
 
@@ -73,6 +82,12 @@ class attVH extends RecyclerView.ViewHolder{
             adapter.items.get(getBindingAdapterPosition()).setAbsent(true);
             adapter.items.get(getBindingAdapterPosition()).setPresent(false);
             adapter.notifyItemChanged(getBindingAdapterPosition());
+
+            Button present = (Button) itemView.findViewById(R.id.Present);
+            Button absent = (Button) itemView.findViewById((R.id.Absent));
+
+            absent.setBackgroundColor(Color.BLUE);
+            present.setBackgroundColor(Color.GRAY);
             // How to remove a student from the list, might be a good idea once functionality has  been written to write to DB
 //            adapter.items.remove(getBindingAdapterPosition());
 //            adapter.notifyItemRemoved(getBindingAdapterPosition());
